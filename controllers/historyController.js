@@ -1,3 +1,4 @@
+// controllers/historyController.js
 const HistoryPengeluaran = require("../models/HistoryPengeluaran");
 const Transaction = require("../models/Transaction");
 
@@ -15,8 +16,9 @@ const saveMonthlyHistory = async (req, res) => {
 
       const totals = { Makanan: 0, Transportasi: 0, Darurat: 0, Tabungan: 0 };
       transactions.forEach((tx) => {
-         if (totals[tx.category] !== undefined)
+         if (totals[tx.category] !== undefined) {
             totals[tx.category] += tx.amount;
+         }
       });
 
       const history = new HistoryPengeluaran({ userId, month, year, totals });
@@ -40,4 +42,29 @@ const getMonthlyHistory = async (req, res) => {
    }
 };
 
-module.exports = { saveMonthlyHistory, getMonthlyHistory };
+// Fungsi baru: hapus history
+const deleteMonthlyHistory = async (req, res) => {
+   try {
+      const { id } = req.params;
+      const userId = req.user.userId;
+
+      const history = await HistoryPengeluaran.findOneAndDelete({
+         _id: id,
+         userId,
+      });
+
+      if (!history) {
+         return res.status(404).json({ message: "History tidak ditemukan" });
+      }
+
+      res.json({ message: "History pengeluaran berhasil dihapus", id });
+   } catch (error) {
+      res.status(500).json({ message: "Server error", error });
+   }
+};
+
+module.exports = {
+   saveMonthlyHistory,
+   getMonthlyHistory,
+   deleteMonthlyHistory, // export
+};

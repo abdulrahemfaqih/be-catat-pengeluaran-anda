@@ -1,3 +1,4 @@
+// models/HistoryPengeluaran.js
 const mongoose = require("mongoose");
 
 const HistoryPengeluaranSchema = new mongoose.Schema({
@@ -6,7 +7,7 @@ const HistoryPengeluaranSchema = new mongoose.Schema({
       ref: "User",
       required: true,
    },
-   month: { type: Number, required: true }, // 1-12
+   month: { type: Number, required: true },
    year: { type: Number, required: true },
    totals: {
       Makanan: { type: Number, default: 0 },
