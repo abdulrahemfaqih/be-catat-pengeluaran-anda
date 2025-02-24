@@ -1,4 +1,3 @@
-// controllers/historyController.js
 const HistoryPengeluaran = require("../models/HistoryPengeluaran");
 const Transaction = require("../models/Transaction");
 
@@ -42,7 +41,7 @@ const getMonthlyHistory = async (req, res) => {
    }
 };
 
-// Fungsi baru: hapus history
+
 const deleteMonthlyHistory = async (req, res) => {
    try {
       const { id } = req.params;

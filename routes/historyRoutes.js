@@ -1,4 +1,3 @@
-// routes/historyRoutes.js
 const express = require("express");
 const {
    saveMonthlyHistory,
