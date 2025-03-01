@@ -10,6 +10,7 @@ const transactionRoutes = require("./routes/transactionRoutes");
 const budgetRoutes = require("./routes/budgetRoutes");
 const historyRoutes = require("./routes/historyRoutes");
 const pemasukanRoutes = require("./routes/pemasukanRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
 
 connectDB();
 
@@ -24,6 +25,7 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/budgets", budgetRoutes);
 app.use("/api/history", historyRoutes);
 app.use("/api/pemasukan", pemasukanRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
