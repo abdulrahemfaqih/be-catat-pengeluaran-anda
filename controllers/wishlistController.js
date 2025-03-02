@@ -15,13 +15,14 @@ const getWishlist = async (req, res) => {
 
 const createWishlist = async (req, res) => {
     try {
-        const { name, price, description, purchaseLink } = req.body;
+        const { name, price, description, purchaseLink, imageUrls } = req.body;
         const newWhistlist = new whistlist({
             userId: req.user.userId,
             name,
             price,
             description,
             purchaseLink,
+            imageUrls,
         });
         await newWhistlist.save();
         res.json({
@@ -37,10 +38,10 @@ const createWishlist = async (req, res) => {
 const updateWishlist = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, price, description, purchaseLink } = req.body;
+        const { name, price, description, purchaseLink, imageUrls } = req.body;
         const updatedWhistlist = await whistlist.findOneAndUpdate(
             { _id: id, userId: req.user.userId },
-            { name, price, description, purchaseLink },
+            { name, price, description, purchaseLink, imageUrls },
             { new: true }
         );
         if (!updatedWhistlist)
@@ -66,7 +67,7 @@ const deleteWishlist = async (req, res) => {
         res.json({ message: "Wishlist berhasil dihapus" });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
-    }   
+    }
 }
 
 module.exports = { getWishlist, createWishlist, updateWishlist, deleteWishlist };
