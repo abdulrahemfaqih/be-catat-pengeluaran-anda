@@ -10,6 +10,7 @@ const WishlistSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     description: { type: String },
     purchaseLink: { type: String },
+    imageUrls: [{ type: String }],
     date: { type: Date, default: Date.now },
 });
 

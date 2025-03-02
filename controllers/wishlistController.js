@@ -66,7 +66,7 @@ const deleteWishlist = async (req, res) => {
         res.json({ message: "Wishlist berhasil dihapus" });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
-    }
+    }   
 }
 
 module.exports = { getWishlist, createWishlist, updateWishlist, deleteWishlist };
