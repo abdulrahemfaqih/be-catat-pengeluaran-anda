@@ -11,8 +11,11 @@ const HistoryPengeluaranSchema = new mongoose.Schema({
    totals: {
       Makanan: { type: Number, default: 0 },
       Transportasi: { type: Number, default: 0 },
-      Darurat: { type: Number, default: 0 },
-      Tabungan: { type: Number, default: 0 },
+      "Kebutuhan Pribadi": { type: Number, default: 0 },
+      Hiburan: { type: Number, default: 0 },
+      Kesehatan: { type: Number, default: 0 },
+      Pendidikan: { type: Number, default: 0 },
+      
    },
    createdAt: { type: Date, default: Date.now },
 });

@@ -13,7 +13,15 @@ const saveMonthlyHistory = async (req, res) => {
          },
       });
 
-      const totals = { Makanan: 0, Transportasi: 0, Darurat: 0, Tabungan: 0 };
+      const totals = {
+         Makanan: 0,
+         Transportasi: 0,
+         Kesehatan: 0,
+         Pendidikan: 0,
+         Lainnya: 0,
+         Hiburan: 0,
+         "Kebutuhan Pribadi": 0
+      };
       transactions.forEach((tx) => {
          if (totals[tx.category] !== undefined) {
             totals[tx.category] += tx.amount;

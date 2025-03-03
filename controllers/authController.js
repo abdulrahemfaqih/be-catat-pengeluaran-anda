@@ -13,7 +13,14 @@ const register = async (req, res) => {
       await user.save();
 
       // Buat 4 budget default
-      const categories = ["Makanan", "Transportasi", "Darurat", "Tabungan"];
+      const categories = [
+         "Makanan",
+         "Transportasi",
+         "Hiburan",
+         "Kehsehatan",
+         "Pendidikan",
+         "Kebutuhan Pribadi",
+      ];
       const budgetDocs = categories.map((cat) => ({
          userId: user._id,
          category: cat,
