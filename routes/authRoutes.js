@@ -10,6 +10,18 @@ router.post("/login", authController.login);
 router.get(
    "/google",
    (req, res, next) => {
+       console.log("Request headers:", req.headers);
+       console.log("Request host:", req.get("host"));
+       console.log("Base URL:", req.protocol + "://" + req.get("host"));
+       console.log(
+          "Auth callback will be:",
+          req.protocol + "://" + req.get("host") + "/api/auth/google/callback"
+       );
+       console.log(
+          "Environment callback URL:",
+          process.env.GOOGLE_CALLBACK_URL
+       );
+      
       // Clear any previous session if exists
       if (req.session) {
          req.session.destroy();
