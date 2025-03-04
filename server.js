@@ -55,6 +55,10 @@ app.use("/api/history", historyRoutes);
 app.use("/api/pemasukan", pemasukanRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 
+app.get("/api/health-check", (req, res) => {
+   res.status(200).json({ status: "OK" });
+});
+
 // Error handler
 app.use((err, req, res, next) => {
    console.error(err.stack);
