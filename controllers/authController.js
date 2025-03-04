@@ -9,10 +9,15 @@ const register = async (req, res) => {
       if (user)
          return res.status(400).json({ message: "User sudah terdaftar" });
 
-      user = new User({ name, email, password });
+      user = new User({
+         name,
+         email,
+         password,
+         provider: "local",
+      });
       await user.save();
 
-      // Buat 4 budget default
+      // Buat budget default
       const categories = [
          "Makanan",
          "Transportasi",
@@ -53,4 +58,38 @@ const login = async (req, res) => {
    }
 };
 
-module.exports = { register, login };
+const googleAuthCallback = (req, res) => {
+   try {
+      const user = req.user;
+      if (!user) {
+         return res.redirect(
+            `${process.env.CLIENT_URL}/login?error=auth_failed`
+         );
+      }
+
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+         expiresIn: "7d",
+      });
+
+      // Tambahkan timestamp untuk menghindari cache issues
+      const timestamp = new Date().getTime();
+
+      // Redirect ke frontend dengan token dan user data
+      res.redirect(
+         `${
+            process.env.CLIENT_URL
+         }/auth/google/success?token=${token}&user=${encodeURIComponent(
+            JSON.stringify({ id: user._id, name: user.name, email: user.email })
+         )}&t=${timestamp}`
+      );
+   } catch (error) {
+      console.error("Google auth callback error:", error);
+      res.redirect(
+         `${
+            process.env.CLIENT_URL
+         }/login?error=auth_failed&msg=${encodeURIComponent(error.message)}`
+      );
+   }
+};
+
+module.exports = { register, login, googleAuthCallback };
