@@ -8,7 +8,14 @@ const BudgetSchema = new mongoose.Schema({
    },
    category: {
       type: String,
-      enum: ["Makanan", "Transportasi", "Hiburan", "Kehsehatan", "Pendidikan", "Kebutuhan Pribadi"],
+      enum: [
+         "Makanan",
+         "Transportasi",
+         "Hiburan",
+         "Kesehatan",
+         "Pendidikan",
+         "Kebutuhan Pribadi",
+      ],
       required: true,
    },
    budget: { type: Number, required: true },

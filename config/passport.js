@@ -49,7 +49,7 @@ passport.use(
                "Makanan",
                "Transportasi",
                "Hiburan",
-               "Kehsehatan",
+               "Kesehatan",
                "Pendidikan",
                "Kebutuhan Pribadi",
             ];

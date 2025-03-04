@@ -22,7 +22,7 @@ const register = async (req, res) => {
          "Makanan",
          "Transportasi",
          "Hiburan",
-         "Kehsehatan",
+         "Kesehatan",
          "Pendidikan",
          "Kebutuhan Pribadi",
       ];

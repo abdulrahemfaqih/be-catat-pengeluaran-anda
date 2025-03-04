@@ -13,7 +13,7 @@ const TransactionSchema = new mongoose.Schema({
          "Makanan",
          "Transportasi",
          "Hiburan",
-         "Kehsehatan",
+         "Kesehatan",
          "Pendidikan",
          "Kebutuhan Pribadi",
       ],
