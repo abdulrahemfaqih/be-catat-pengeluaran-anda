@@ -21,6 +21,7 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 connectDB();
 
 const app = express();
+app.set("trust proxy", 1);
 app.use(
    cors({
       origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -40,12 +41,13 @@ app.use(
       resave: false,
       saveUninitialized: false,
       store: MongoStore.create({
-         mongoUrl: process.env.MONGO_URI, // Gunakan koneksi MongoDB yang sudah ada
-         collectionName: "sessions", // Nama koleksi untuk menyimpan sesi
-         ttl: 24 * 60 * 60, // Waktu aktif sesi dalam detik (24 jam)
+         mongoUrl: process.env.MONGO_URI,
+         collectionName: "sessions",
+         ttl: 24 * 60 * 60,
       }),
       cookie: {
          secure: process.env.NODE_ENV === "production",
+         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
          maxAge: 24 * 60 * 60 * 1000, // 24 jam
       },
    })
