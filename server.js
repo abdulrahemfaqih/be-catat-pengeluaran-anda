@@ -66,6 +66,10 @@ app.use("/api/budgets", budgetRoutes);
 app.use("/api/history", historyRoutes);
 app.use("/api/pemasukan", pemasukanRoutes);
 app.use("/api/wishlist", wishlistRoutes);
+app.get("/", (req, res) => {
+   res.send("Server is running!");
+});
+
 
 app.get("/api/health-check", (req, res) => {
    console.log("Health check passed!");
