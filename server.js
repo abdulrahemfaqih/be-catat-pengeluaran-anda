@@ -63,6 +63,7 @@ app.use("/api/pemasukan", pemasukanRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 
 app.get("/api/health-check", (req, res) => {
+   console.log("Health check passed!");
    res.status(200).json({ status: "OK" });
 });
 
