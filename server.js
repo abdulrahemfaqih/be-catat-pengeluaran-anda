@@ -21,7 +21,6 @@ const wishlistRoutes = require("./routes/wishlistRoutes");
 connectDB();
 
 const app = express();
-app.set("trust proxy", 1);
 app.use(
    cors({
       origin: process.env.CLIENT_URL || "http://localhost:5173",
@@ -56,7 +55,11 @@ app.use(
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use("/api/auth/*", (req, res, next) => {
+   res.header("Strict-Transport-Security", "max-age=31536000");
+   res.header("X-Content-Type-Options", "nosniff");
+   next();
+});
 app.use("/api/auth", authRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/budgets", budgetRoutes);
