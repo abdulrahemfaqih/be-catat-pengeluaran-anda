@@ -5,7 +5,7 @@ const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 const passport = require("./config/passport");
 const session = require("express-session");
-
+const MongoStore = require("connect-mongo");
 
 // Import passport config
 require("./config/passport");
@@ -34,15 +34,22 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Session must be before passport initialization
-app.use(session({
-   secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
-   resave: false,
-   saveUninitialized: false,
-   cookie: {
-      secure: process.env.NODE_ENV === 'production',
-      maxAge: 24 * 60 * 60 * 1000 // 24 hours
-   }
-}));
+app.use(
+   session({
+      secret: process.env.SESSION_SECRET || process.env.JWT_SECRET,
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({
+         mongoUrl: process.env.MONGO_URI, // Gunakan koneksi MongoDB yang sudah ada
+         collectionName: "sessions", // Nama koleksi untuk menyimpan sesi
+         ttl: 24 * 60 * 60, // Waktu aktif sesi dalam detik (24 jam)
+      }),
+      cookie: {
+         secure: process.env.NODE_ENV === "production",
+         maxAge: 24 * 60 * 60 * 1000, // 24 jam
+      },
+   })
+);
 
 // Initialize Passport
 app.use(passport.initialize());
