@@ -45,12 +45,14 @@ app.use(
          ttl: 24 * 60 * 60,
       }),
       cookie: {
-         secure: process.env.NODE_ENV === "production",
-         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+         secure: true,
+         sameSite: "none",
          maxAge: 24 * 60 * 60 * 1000, // 24 jam
+         httpOnly: true, // Menambahkan flag httpOnly untuk keamanan tambahan
       },
    })
 );
+app.set("trust proxy", 1);
 
 // Initialize Passport
 app.use(passport.initialize());
